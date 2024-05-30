@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #262421;
+  color: black;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 8px;
+  width: 100vw;
+}
+
+.board-sidebar {
+  border-radius: 8px;
+  height: 1000px;
+  width: 250px;
+  background-color: #302e2b;
+}
+
+.board-sidebar > div {
+  height: 30px;
+  text-align: center;
+  width: 100%;
+  margin-top: 16px;
+  font-size: 20px;
+  border-bottom: 1px solid white;
+}
+
+.board {
+  width: 1000px;
+  height: 1000px;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+
+.square {
+  position: relative;
+  width: 12.5%;
+  height: 12.5%;
+}
+
+.number {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.piece {
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: block;
+  position: relative;
+}
+
+.white {
+  background-color: #779556;
+}
+
+.black {
+  background-color: #ebecd0;
+}
+
+.yellow::after {
+  content: "";
+  height: 25%;
+  width: 25%;
+  position: absolute;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.14);
+  pointer-events: none;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.take {
+  background-color: #86fe05;
+}
