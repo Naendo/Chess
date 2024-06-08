@@ -17,7 +17,8 @@ export default function Piece({ bitValue, index }: { bitValue: number; index: nu
     type: NativeTypes.URL,
     item: drop,
     canDrag: () =>
-      (color === PieceColor.White && chessState.whiteIsPlaying) || (color == PieceColor.Black && !chessState.whiteIsPlaying),
+      (color === PieceColor.White && chessState.whiteIsPlaying) ||
+      (color === PieceColor.Black && !chessState.whiteIsPlaying),
   });
 
   return (

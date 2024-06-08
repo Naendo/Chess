@@ -1,7 +1,7 @@
-import { CheckMove } from "./piece";
-import { checkBishop } from "./pieces/bishop";
-import { checkQueen } from "./pieces/queen";
-import { checkRook } from "./pieces/rook";
+import { Move, generateStraightMoves } from "./piece";
+import { checkKing as generateKing } from "./pieces/king";
+import { checkKnight as generateKnight } from "./pieces/knight";
+import { checkPawn as generatePawn } from "./pieces/pawn";
 
 export enum PieceType {
   None = 0,
@@ -57,27 +57,26 @@ export class Chess {
     return moves.includes(destinationIndex);
   }
 
+  // To check for king checks, keep a table of squares under attack and update the table with every move,
+  // this way not all pieces have to evaluated every move
   public getValidMoves(originIndex: number) {
     const bitValue = this.position[originIndex];
     const [color, piece] = getPieceFromBit(bitValue);
 
-    const validMoves = Array<number>();
-
-    const move: CheckMove = {
+    const move: Move = {
       position: this.position,
       originIndex,
       color,
+      piece,
     };
 
-    if (piece === PieceType.Rook) {
-      validMoves.push(...checkRook(move));
-    } else if (piece === PieceType.Bishop) {
-      validMoves.push(...checkBishop(move));
-    } else if (piece === PieceType.Queen) {
-      validMoves.push(...checkQueen(move));
-    }
+    if (piece === PieceType.Bishop || piece === PieceType.Queen || piece === PieceType.Rook)
+      return generateStraightMoves(move);
 
-    return validMoves;
+    if (piece === PieceType.Pawn) return generatePawn(move);
+    if (piece === PieceType.King) return generateKing(move);
+    if (piece === PieceType.Knight) return generateKnight(move);
+    return [];
   }
 
   public move({ origin, destination }: { origin: number; destination: number }) {
@@ -99,7 +98,7 @@ export class Chess {
         if (Chess.isNumber(symbol)) {
           file += Number(symbol);
         } else {
-          const pieceColor = symbol === symbol.toUpperCase() ? PieceColor.White : PieceColor.Black;
+          const pieceColor = symbol === symbol.toUpperCase() ? PieceColor.Black : PieceColor.White;
           const pieceType = pieceTypeFromSymbol.find((x) => x.key === symbol.toLowerCase())!.value;
 
           squares[row * 8 + file] = Number(pieceColor) + Number(pieceType);

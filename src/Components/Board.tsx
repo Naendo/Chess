@@ -5,7 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ChessState } from "../context/ChessState";
 
-const chess = new Chess("1nN1R1n1/pBkP2p1/5pPP/RbPP3K/rp1r2PP/1p3qP1/1N1ppp2/1Qb1B3");
+const chess = new Chess("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
 export default function Board() {
   const [position, onPosition] = useState<Array<number>>(chess.getPosition());
